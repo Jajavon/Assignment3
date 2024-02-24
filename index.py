@@ -9,6 +9,11 @@
 
 
 
+dev = "C:\Users\j_aja\PycharmProjects\CS121projects\Assignment3\DEV"
+inverse_index = dict()
+index_count = 0
+unique_words = 0
+total_size = 0
 
 def index(pages):
 
