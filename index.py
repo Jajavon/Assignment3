@@ -205,7 +205,37 @@ def partial_index():
     file_list = [os.path.join(save_path, f"info{x + 1}" + ".txt") for x in range(index_count)]
     url_list = [os.path.join(save_path, f"info_urls{x + 1}" + ".txt") for x in range(index_count)]
 
+    base = []
+    for file in file_list:
+        temp = pandas.read_json(file, orient = "index")
+        base.append(temp)
 
+    result = base[0]
+    result.columns = ["pages1"]
+    count = 2
+    for i in base[1:]:
+        i.columns = [f'pages{count}']
+        count += 1
+        result = result.join(i, how = "outer", lsuffix = "_left", rsuffix = "_right")
+
+    result = result.fillna('')
+    result['all_pages'] = result['all_pages'] = result["pages1"] + result["pages2"] + result[
+        "pages3"] + result["pages4"] + result["pages5"] + result["pages6"]
+    for i in range(index_count):
+        del result[f'pages{i + 1}']
+
+    total_urls = []
+    for urls in url_list:
+        temps = pandas.read_json(urls, orient = 'index')
+        total_urls.append(temps)
+    url_result = pandas.concat(total_urls)
+    save_path = os.path.join(os.getcwd(), "Test")
+
+    final_text = os.path.join(save_path, "final_text.txt")
+    final_url = os.path.join(save_path, "final_url.txt")
+
+    result.to_json(final_text)
+    url_result.to_json(final_url)
 
 if __name__ == "__main__":
     start = time.time()
