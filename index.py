@@ -22,7 +22,11 @@ import json
 import pandas
 
 
-dev = "C:\Users\j_aja\PycharmProjects\CS121projects\Assignment3\DEV"
+#dev = "C:\Users\j_aja\PycharmProjects\CS121projects\Assignment3\DEV"
+#dev = "C:\Users\j_aja\PycharmProjects\CS121projects\Assignment3\DEV"
+#dev = "C:\Test\DEV" # os.path.join(os.getcwd(), "DEV")
+dev = os.path.join(os.getcwd(), "DEV")
+
 inverse_index = dict()
 doc_dict = dict()
 word_freq = defaultdict(int)
