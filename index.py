@@ -7,7 +7,9 @@
 # • Important text: text in bold (b, strong), in headings (h1, h2, h3), and in titles should be treated as more important than the in other places.
 # Verify which are the relevant HTML tags to select the important words.
 
-
+import os
+from bs4 import BeautifulSoup
+import time
 
 dev = "C:\Users\j_aja\PycharmProjects\CS121projects\Assignment3\DEV"
 inverse_index = dict()
