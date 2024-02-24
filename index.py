@@ -129,11 +129,10 @@ def calculate(txtfile):
             posts = eval(posts)[0]
             new_postings = list()
 
-    for w in tList:
-       if w in rec.all:
-           rec.all[w] += 1
-       else:
-           rec.all[w] = 1
+            for (docID, score) in posts:
+                idf = math.log(270526 / len(posts) + 1)
+                new_postings.append((docID, round(score * idf, 7)))
+            final_index[word] = new_postings
 
     save_path = os.path.join(os.getcwd(), "Test")
     score_dict = open(os.path.join(save_path, "score_dict.txt"), 'w')
