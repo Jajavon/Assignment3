@@ -56,4 +56,7 @@ def main():
 
 
 if __name__ == "__main__":
+    start = time.time()
     main()
+    end = time.time()
+    print("seconds:", end)
