@@ -119,15 +119,10 @@ def calculate(txtfile):
     with open(txtfile, "r") as file:
         text_response = json.loads(file.read())
 
-    for i in range(len(text)):
-        if (text[i].isalnum()):
-            word += text[i].lower()
-        else:
-            if (len(word)) >= 3:
-                tList.append(word)
-                word = ""
-            else:
-                word = ""
+        for word, posting in text_response['all_pages'].items():
+            posts = re.sub('}', '}, ', str(posting))
+            posts = eval(posts)[0]
+            new_postings = list()
 
     for w in tList:
        if w in rec.all:
@@ -166,7 +161,45 @@ def main():
 
     except Exception as error:
         print("There is an error at: " + str(error))
-        raise
+
+    partial_index()
+    final_text = os.path.join(save_path, "final_text.txt")
+    calculate(final_text, total_indoc)
+
+
+def partial_index():
+    global index_count
+    global unique_words
+    global total_indoc
+    global doc_id
+    global current_id
+    global inverse_index
+    global doc_dict
+
+    unique_words += len(inverse_index)
+    index_count += 1
+    total_indoc += doc_id
+
+    save_path = os.path.join(os.getcwd(), "Test")
+
+    info = os.path.join(save_path, f"info{index_count}" + ".txt")
+    info_urls = os.path.join(save_path, f"info_urls{index_count}" + ".txt")
+
+    sent_text = open(info, 'w')
+    extra_text = open(info_urls, 'w')
+
+    with sent_text as json_file:
+        inverse_index = {k: str(v) for k, v in sorted(inverse_index.items())}
+        json.dump(inverse_index, json_file)
+    sent_text.close()
+
+    with extra_text as index_json_file:
+        doc_dict = {k: v for k, v in sorted(doc_dict.items())}
+        json.dump(doc_dict, index_json_file)
+    extra_text.close()
+
+    file_list = [os.path.join(save_path, f"info{x + 1}" + ".txt") for x in range(index_count)]
+    url_list = [os.path.join(save_path, f"info_urls{x + 1}" + ".txt") for x in range(index_count)]
 
 
 
