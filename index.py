@@ -25,7 +25,31 @@ def index(doc_id, current_id, alpha_sequences, first_rank, second_rank):
     if doc_id % 11000 == 0:
         write()
 
-def index(pages):
+    word_freq = defaultdict()
+
+    for word in alpha_sequences:
+        word_freq[word] += 1
+
+    for word in alpha_sequences:
+        score = round(word_freq[word] / len(alpha_sequences), 7)
+
+    for word in alpha_sequences:
+        try:
+            if first_rank[word]:
+                score += 1
+            if second_rank[word]:
+                score += 0.5
+        except:
+            pass
+
+        finally:
+            if word not in inverse_index:
+                first_time = (current_id, score)
+                inverse_index[word] = set()
+                inverse_index[word].add(first_time)
+            else:
+                inverse_index[word].add((current_id, score))
+    word_freq.clear()
 
 def write():
     {}
