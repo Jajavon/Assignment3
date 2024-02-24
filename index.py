@@ -152,6 +152,10 @@ def main(dev):
             doc_id += 1
             current_id += 1
             alpha_sequences = list()
+            print(f"File: DOCUMENT ID:{doc_id} INDEX COUNT:{index_count} WORDS:{unique_words} CURRENT ID:{current_id}: ", datafile)
+
+            first_rank = dict()
+            second_rank = dict()
 
     try:
         soup = BS(open(datafile), "html.parser")
