@@ -11,16 +11,11 @@
 
 
 def index(pages):
-    """
-    input: crawled pages
-    Information Analyst. In this flavor there is some programming involved, but not much more
-    advanced than what you already did so far. It is a mixture of a Text Processing project and
-    stitching things together. You will use a small subset of crawled pages.
-    :return:
-    """
+
+def write():
 
 def main():
-    print()
+    write()
 
 if __name__ == "__main__":
     main()
