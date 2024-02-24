@@ -52,8 +52,35 @@ def index(doc_id, current_id, alpha_sequences, first_rank, second_rank):
     word_freq.clear()
 
 def write():
-    {}
-def tokenize(text):
+    global index_count
+    global unique_words
+    global total_indoc
+    global doc_id
+    global current_id
+    global inverse_index
+
+    index_count += len(inverse_index)
+    total_indoc += doc_id
+    index_count += 1
+    doc_id = 0
+
+    sent_text = open(os.path.join(save_path, f"info{index_count}" + ".txt"), 'w')
+    extra_text = open(os.path.join(save_path, f"info_urls{index_count}" + ".txt"), 'w')
+
+    with sent_text as json_file:
+        inverse_index = {k: str(v) for k, v in sorted(inverse_index.items())}
+        json.dump(inverse_index, json_file)
+    sent_text.close()
+
+    with extra_text as index_json_file:
+        doc_id = {k: v for k, v in sorted(doc_id.items())}
+        json.dump(doc_id, index_json_file)
+    extra_text.close()
+
+    inverse_index.clear()
+    doc_id.clear()
+
+def tokenize(content):
     """
     Runtime Complexity: O(n)
     """
