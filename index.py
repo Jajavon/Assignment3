@@ -173,10 +173,13 @@ def main(dev):
 
         index(doc_id, current_id, alpha_sequences, first_rank, second_rank)
 
+        doc_dict[current_id] = datafile[49:]
+
     except Exception as error:
         print("There is an error at: " + str(error))
 
     partial_index()
+    save_path = os.path.join(os.getcwd(), "Test")
     final_text = os.path.join(save_path, "final_text.txt")
     calculate(final_text, total_indoc)
 
