@@ -80,6 +80,7 @@ def write():
     total_indoc += doc_id
     index_count += 1
     doc_id = 0
+    save_path = os.path.join(os.getcwd(), "Test")
 
     sent_text = open(os.path.join(save_path, f"info{index_count}" + ".txt"), 'w')
     extra_text = open(os.path.join(save_path, f"info_urls{index_count}" + ".txt"), 'w')
@@ -134,7 +135,13 @@ def calculate(txtfile):
        else:
            rec.all[w] = 1
 
-def main():
+    save_path = os.path.join(os.getcwd(), "Test")
+    score_dict = open(os.path.join(save_path, "score_dict.txt"), 'w')
+    with score_dict as file:
+        file.write(json.dumps(final_index))
+    score_dict.close()
+
+def main(dev):
     global doc_id
     global current_id
 
