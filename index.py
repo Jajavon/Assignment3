@@ -15,7 +15,15 @@ dev = "C:\Users\j_aja\PycharmProjects\CS121projects\Assignment3\DEV"
 inverse_index = dict()
 index_count = 0
 unique_words = 0
-total_size = 0
+total_indoc = 0
+doc_id = 0
+current_id = 0
+
+
+def index(doc_id, current_id, alpha_sequences, first_rank, second_rank):
+
+    if doc_id % 11000 == 0:
+        write()
 
 def index(pages):
 
@@ -48,10 +56,31 @@ def tokenize(text):
 def main():
     write()
     for subdir, dirs, files in os.walk(dev): # iterates through DEV
-        for file in files
+        for file in files:
             datafile = os.path.join(subdir, file)
-            
-            
+            doc_id += 1
+            current_id += 1
+            alpha_sequences = list()
+
+    try:
+        soup = BS(open(datafile), "html.parser")
+        for content in soup.findAll(["title", "p", "b", re.compile('^h[1-6]$')]):
+            data = content.getText().strip()
+            alpha_sequences = word_tokenize(data)
+
+        for content in soup.findAll(["title", re.compile('^h[1-3]$')]):
+            data = content.getText().strip()
+            first_rank = {**first_rank, **(Counter(word_tokenize(data)))}
+
+        for content in soup.findAll(["b", "strong", re.compile('^h[1-3]$')]):
+            data = content.getText().strip()
+            second_rank = {**second_rank, **(Counter(word_tokenize(data)))}
+
+        index(doc_id, current_id, alpha_sequences, first_rank, second_rank)
+
+    except Exception as error:
+        print("There is an error at: " + str(error))
+        raise
 
 
 
