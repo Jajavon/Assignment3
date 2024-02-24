@@ -13,6 +13,8 @@ import time
 
 dev = "C:\Users\j_aja\PycharmProjects\CS121projects\Assignment3\DEV"
 inverse_index = dict()
+doc_dict = dict()
+word_freq = defaultdict(int)
 index_count = 0
 unique_words = 0
 total_indoc = 0
