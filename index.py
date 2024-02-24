@@ -7,9 +7,20 @@
 # • Important text: text in bold (b, strong), in headings (h1, h2, h3), and in titles should be treated as more important than the in other places.
 # Verify which are the relevant HTML tags to select the important words.
 
+import math
 import os
-from bs4 import BeautifulSoup
+import re
+import pandas as pd
+from bs4 import BeautifulSoup as BS
 import time
+#import nltk
+from collections import Counter
+from nltk.tokenize import word_tokenize
+from nltk.stem import PorterStemmer as PS
+from collections import defaultdict
+import json
+import pandas
+
 
 dev = "C:\Users\j_aja\PycharmProjects\CS121projects\Assignment3\DEV"
 inverse_index = dict()
