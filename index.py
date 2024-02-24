@@ -58,8 +58,26 @@ def tokenize(text):
     Runtime Complexity: O(n)
     """
     tList = []
-    word = ""
-    text = text.split()
+    token_word = ""
+    content = content.split()
+    ps = PS()
+
+    for w in content:
+        token_word = re.sub("[^A-Za-z0-9]+", " ", str(w))
+        token_word = re.sub("_", " ", str(token_word))
+        token_word = token_word.strip()
+
+        if len(token_word.split()) > 1:
+            for token in token_word.split():
+                stem_token = ps.stem(token)
+                if len(stem_token) >= 2:
+                    tList.append(stem_token)
+    return tList
+
+def calculate(txtfile):
+    final_index = {}
+    with open(txtfile, "r") as file:
+        text_response = json.loads(file.read())
 
     for i in range(len(text)):
         if (text[i].isalnum()):
