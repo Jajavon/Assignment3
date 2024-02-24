@@ -144,8 +144,6 @@ def main(dev):
     global doc_id
     global current_id
 
-    first_rank = dict()
-    second_rank = dict()
     for subdir, dirs, files in os.walk(dev): # iterates through DEV
         for file in files:
             datafile = os.path.join(subdir, file)
