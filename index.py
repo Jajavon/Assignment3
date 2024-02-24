@@ -47,6 +47,13 @@ def tokenize(text):
 
 def main():
     write()
+    for subdir, dirs, files in os.walk(dev): # iterates through DEV
+        for file in files
+            datafile = os.path.join(subdir, file)
+            
+            
+
+
 
 if __name__ == "__main__":
     main()
