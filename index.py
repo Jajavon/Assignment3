@@ -18,6 +18,30 @@ total_size = 0
 def index(pages):
 
 def write():
+    {}
+def tokenize(text):
+    """
+    Runtime Complexity: O(n)
+    """
+    tList = []
+    word = ""
+    text = text.split()
+
+    for i in range(len(text)):
+        if (text[i].isalnum()):
+            word += text[i].lower()
+        else:
+            if (len(word)) >= 3:
+                tList.append(word)
+                word = ""
+            else:
+                word = ""
+
+    for w in tList:
+       if w in rec.all:
+           rec.all[w] += 1
+       else:
+           rec.all[w] = 1
 
 def main():
     write()
