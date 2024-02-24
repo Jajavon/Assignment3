@@ -209,6 +209,13 @@ def partial_index():
 
 if __name__ == "__main__":
     start = time.time()
-    main()
-    end = time.time()
-    print("seconds:", end)
+    print("DEV: ", dev)
+    main(dev)
+    print("\nResults: ")
+    print("--- %s seconds ---" % (time.time() - start))
+    # Number of indexed document?
+    print("Number of indexed document: " + str(total_indoc) + " " + str(current_id))
+    # Number of unique words?
+    print("Number of unique words: " + str(unique_words))
+    # Total size of index on disk?
+    print("Total size of index on disk: ", pd.Index)
