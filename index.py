@@ -75,7 +75,7 @@ def save():
 
                 saved_files = saved_files + 1;
                 inprogress = (saved_files / float(Dir_files)) * 100
-                sys.stdout.write("Writing & saving files... %d%%   \r" % (inprogress) )
+                sys.stdout.write("Writing & saving files..~ %d%%   \r" % (inprogress) )
                 if(inprogress != 100):
                     sys.stdout.flush()
                 else:
@@ -102,20 +102,17 @@ def writeTermID():
         termIds_ord = {v: i for i, v in enumerate(termIds_isalnum.keys(), 1)}
         # print("\n\n\nORDER: ", termIds_ord)
 
-    for word in alpha_sequences:
-        try:
-            if first_rank[word]:
-                score += 1
-            if second_rank[word]:
-                score += 0.5
-        except:
-            pass
-
-        finally:
-            if word not in inverse_index:
-                first_time = (current_id, score)
-                inverse_index[word] = set()
-                inverse_index[word].add(first_time)
+        f.write('Total Terms: ' + str(total_terms) + "\n")
+        for k, v in termIds_ord.items():
+            special_k = (str(k).replace("b'", "'")).lower().strip("'")
+            # print(special_k, " BOOL: ", special_k.isalnum())
+            if special_k.isalnum():
+                f.write(str(v) + ' ' + special_k + '\n')
+                done_terms = done_terms + 1
+            inprogress = (done_terms / float(total_terms)) * 100
+            sys.stdout.write("Writing term IDs to termsIDs.txt..~ %d%%   \r" % (inprogress))
+            if (inprogress != 100):
+                sys.stdout.flush()
             else:
                 inverse_index[word].add((current_id, score))
     word_freq.clear()
