@@ -86,8 +86,16 @@ def scanDocID():
 
     return doc_id_dict
 
-def wordfrequency():
-    
+def wordfrequency(words, doc_id):
+    words = parseDocData(doc_id).lower().split()
+    count = 0
+    for word in words:
+        if word == term:
+            count += 1
+        else:
+            count = 1
+    return 1 + math.log(int(count))
+
 def FindALL():
     
     
