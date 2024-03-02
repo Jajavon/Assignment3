@@ -86,7 +86,7 @@ def scanDocID():
 
     return doc_id_dict
 
-def wordfrequency(words, doc_id):
+def wordfrequency(term, doc_id):
     words = parseDocData(doc_id).lower().split()
     count = 0
     for word in words:
