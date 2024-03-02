@@ -82,7 +82,7 @@ def scanDocID():
         lines = set(docFile.readlines()[1:])
         for l in lines:
             data = l.split(" ")
-            doc_id = int(float(data[0].strip()))
+            doc_id = data[0].strip()
             doc = data[1].strip()
 
             doc_id_dict[doc_id] = doc
@@ -90,7 +90,7 @@ def scanDocID():
     return doc_id_dict
 
 def wordfrequency(term, doc_id):
-    words = scanDocID(doc_id).lower().split()
+    words = scanContent(doc_id).lower().split()
     count = 0
     for word in words:
         if word == term:
