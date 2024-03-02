@@ -35,7 +35,7 @@ def scanInvIndex():
 
     return invIndex;
 
-def scabTermID():
+def scanTermID():
     term_ID_dict = dict()
 
     with open(TERMS_IDS_FILE, "r") as termfile:
@@ -125,7 +125,7 @@ def saveSCORE(docs, term_id_dict, doc_id_dict, index, search, weight):
     score = dict()
     score.update(calculateALL(docs, term_id_dict, doc_id_dict, index, search, weight))
     return score
-
+def BoolSearcher():
 def SearchTerm(searched, term_id_dict, doc_id_dict, index):
 def printRESULTS(finalscores, doc_id_dict, searched):
 
