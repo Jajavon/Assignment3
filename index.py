@@ -98,6 +98,7 @@ def writeTermID():
     with open('termsIDs.txt', 'w') as f:
         done_terms = 0
         total_terms = len(termIds)
+        count_words = total_terms
         # print("termIds: ", termIds)
 
         termIds_isalnum = {key: value for key, value in termIds.items() if key.isalnum()}
@@ -313,7 +314,11 @@ def partial_index():
 if __name__ == "__main__":
     start = time.time()
     print("DEV: ", dev)
-    main(dev)
+    print("Start -> indexing")
+    save_data()
+    writeTermID()
+    writeDocID()
+    writeDocIDTermID_dict()
     print("\nResults: ")
     print("--- %s seconds ---" % (time.time() - start))
     # Number of indexed document?
@@ -321,4 +326,9 @@ if __name__ == "__main__":
     # Number of unique words?
     print("Number of unique words: " + str(unique_words))
     # Total size of index on disk?
-    print("Total size of index on disk: ", pd.Index)
+    disk_size = 0
+    for path, dirs, files in os.walk(dev):
+        for file in files:
+            file_path = os.path.join(path, file)
+            disk_size += os.path.getsize(file_path)
+    print("Total size of index on disk: ", disk_size)
