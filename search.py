@@ -1,5 +1,6 @@
 # Searcher
-
+import os
+import math
 #   search and retrieval component
 #   At least the following queries should be used to test your retrieval:
 #   cristina lopes, machine learning, ACM, master of software engineering
