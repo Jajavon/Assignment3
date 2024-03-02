@@ -126,7 +126,7 @@ def write():
     global inverse_index
 
 def writeDocID():
-    global docIds
+    global doc_id
     with open('docsIDs.txt', 'w') as f:
         done_docIds = 0
         total_docs = len(docIds)
@@ -140,7 +140,7 @@ def writeDocID():
                 sys.stdout.flush()
             else:
                 sys.stdout.write('\n')
-
+    # print('Total Docs: ' + str(total_docs))
 
 
 
