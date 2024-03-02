@@ -126,6 +126,9 @@ def saveSCORE(docs, term_id_dict, doc_id_dict, index, search, weight):
     score.update(calculateALL(docs, term_id_dict, doc_id_dict, index, search, weight))
     return score
 
+def SearchTerm(searched, term_id_dict, doc_id_dict, index):
+def printRESULTS(finalscores, doc_id_dict, searched):
+
 def main():
     input = usersearch("Enter input: ").strip().lower()
     while input != "":
