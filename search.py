@@ -147,6 +147,26 @@ def SearchTerm(searched, term_id_dict, doc_id_dict, index):
             if doc not in valid_docs:
                 valid_docs.add(doc)
 
+    for doc in valid_docs:
+        containsAll = True
+        for word in search:
+            termId = term_id_dict[word]
+            valid_pages = index[int(termId)]
+            if doc not in valid_pages:
+                containsAll = False
+                break
+
+        if containsAll:
+            good_docs.add(doc)
+    for doc in good_docs:
+        valid_docs.remove(doc)
+
+    # print("valid Docs: ", valid_docs)
+    # print("good Docs: ", good_docs)
+    Scores.update(saveSCORE(good_docs, term_id_dict, doc_id_dict, index, search, 2.0))
+    Scores.update(saveSCORE(valid_docs, term_id_dict, doc_id_dict, index, search, 1.0))
+    return Scores
+
 def printRESULTS(finalscores, doc_id_dict, searched):
 
 def main():
