@@ -72,8 +72,19 @@ def scanURL():
     except ValueError:
         print("No valid JSON in file: ", fn)
     return url_scanned
-def scanID():
-    
+def scanDocID():
+    doc_id_dict = {}
+
+    with open(DOC_IDS_FILE, "r") as docFile:
+        lines = set(docFile.readlines()[1:])
+        for l in lines:
+            data = l.split(" ")
+            doc_id = int(float(data[0].strip()))
+            doc = data[1].strip()
+
+            doc_id_dict[doc_id] = doc
+
+    return doc_id_dict
 
 def wordfrequency():
     
