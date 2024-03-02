@@ -32,7 +32,9 @@ def scanInvIndex():
 
     return invIndex;
 def main():
-    {}
+    input = search("Enter input: ").strip().lower()
+    while input != "":
+        input = search("Enter query: ").strip()
 
 if __name__ == "__main__":
     main()
