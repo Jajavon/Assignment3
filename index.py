@@ -29,7 +29,7 @@ import collections
 #dev = "C:\Test\DEV" # os.path.join(os.getcwd(), "DEV")
 dev = os.path.join(os.getcwd(), "DEV")
 
-dev = "./DEV/"
+dev = "./ANALYST/"
 
 doc_id_dict = dict()
 term_id_dict = dict()
@@ -38,7 +38,7 @@ count_words = 0
 doc_id = 0
 def bool_num(word) -> bool:
     return word.isdigit()
-def save():
+def save_data():
     global doc_id_dict
     global term_id_dict
     global term_n_doc_dict
@@ -116,25 +116,18 @@ def writeTermID():
             if (inprogress != 100):
                 sys.stdout.flush()
             else:
-                inverse_index[word].add((current_id, score))
-    word_freq.clear()
+                sys.stdout.write('\n')
 
-def write():
-    global index_count
-    global unique_words
-    global total_indoc
-    global doc_id
-    global current_id
-    global inverse_index
+    #print('Total terms: ' + str(total_terms))
 
 def writeDocID():
     global doc_id
     with open('docsIDs.txt', 'w') as f:
         done_docIds = 0
-        total_docs = len(docIds)
+        total_docs = len(doc_id)
         f.write('Total Docs: ' + str(total_docs) + '\n')
 
-        for key, value in docIds.items():
+        for key, value in doc_id.items():
             f.write(str(key) + ' ' + value + '\n')
             inprogress = (done_docIds / float(total_docs)) * 100
             sys.stdout.write("Writing DocIDs to docsIDs.txt..~ %d%%   \r" % (inprogress))
@@ -160,7 +153,7 @@ def writeDocIDTermID_dict():
             f.write(str(k) + ' ' + docListString + '\n')
             done_terms = done_terms + 1;
             inprogress = (done_terms / float(total_terms)) * 100
-            sys.stdout.write("Writing inverted index to file ... %d%%   \r" % (inprogress))
+            sys.stdout.write("Writing inverted index to InvIndex_dict.txt ... %d%%   \r" % (inprogress))
             if (inprogress != 100):
                 sys.stdout.flush()
             else:
