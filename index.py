@@ -42,8 +42,28 @@ def save():
     global term_n_doc_dict
     global count_words
     global doc_id
-    
-    
+
+    saved_files = 0
+    Dir_files = len(os.listdir(dev))
+    doc_id = ''
+    doc_num = 0
+    for directory in os.listdir(dev):
+
+        for fn in os.listdir(dev + directory):
+            try:
+                #print("dirs: ", dev, " subdirs: ", directory, " files: ", fn)
+                with open(dev + './' + directory + '/' + fn) as data_file:
+                    j_data = json.load(data_file)
+                    #print(j_data)
+                    doc_id = fn
+                    doc_num += 1
+                    doc_url = j_data["url"]
+                    doc_id_dict[doc_id] = doc_url
+                    pagewords = j_data["content"].split()
+                    for term in pagewords:
+                        encoded_term = term.encode('utf8')
+                        if(not bool_num(encoded_term)):
+                            value = term_id_dict.get(encoded_term)
 
 def index(doc_id, current_id, alpha_sequences, first_rank, second_rank):
 
