@@ -151,8 +151,19 @@ def writeDocIDTermID_dict():
         total_terms = len(term_n_doc_dict)
         # print("termIdDocList: ", term_n_doc_dict, "\nTOTAL: ", total_terms)
 
-    inverse_index.clear()
-    doc_id.clear()
+        for k, v in term_n_doc_dict.items():
+            docListString = str(len(v))
+            for docId in v:
+                docListString += ' ' + str(docId)
+            f.write(str(k) + ' ' + docListString + '\n')
+            done_terms = done_terms + 1;
+            inprogress = (done_terms / float(total_terms)) * 100
+            sys.stdout.write("Writing inverted index to file ... %d%%   \r" % (inprogress))
+            if (inprogress != 100):
+                sys.stdout.flush()
+            else:
+                sys.stdout.write('\n')
+    print('DONE')
 
 def tokenize(content):
     """
