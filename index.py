@@ -64,6 +64,26 @@ def save():
                         encoded_term = term.encode('utf8')
                         if(not bool_num(encoded_term)):
                             value = term_id_dict.get(encoded_term)
+                            if(not value):
+                                term_id_dict[encoded_term] = term_id_count
+                                term_id_dict[term_id_count] = [doc_id]
+                                term_id_count = term_id_count + 1
+                            else:
+                                doc_list = term_n_doc_dict[value]
+                                doc_list.append(doc_id)
+                                term_n_doc_dict[value] = doc_list
+
+                saved_files = saved_files + 1;
+                inprogress = (saved_files / float(Dir_files)) * 100
+                sys.stdout.write("Writing & saving files... %d%%   \r" % (inprogress) )
+                if(inprogress != 100):
+                    sys.stdout.flush()
+                else:
+                    sys.stdout.write('\n')
+
+            except ValueError:
+                print('No valid json in file ' + fn)
+
 
 def index(doc_id, current_id, alpha_sequences, first_rank, second_rank):
 
