@@ -9,6 +9,8 @@ INV_INDEX_FILE = "./InvIndex_dict.txt"
 TERMS_IDS_FILE = "./termsIDs.txt"
 DEV_FILE = "./ANALYST/"
 
+def search(text):
+    return input(text)
 def main():
     {}
 
