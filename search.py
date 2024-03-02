@@ -46,7 +46,7 @@ def scabTermID():
 
     return term_ID_dict
 def scanContent():
-    json_dir = [dir for dir, subdir, json in os.walk(FILE_DUMP) if docId in json][0]
+    json_dir = [dir for dir, subdir, json in os.walk(DEV_FILE) if docId in json][0]
     # print(json_dir)
 
     fn = os.path.join(json_dir, docId)
@@ -61,7 +61,17 @@ def scanContent():
     return content
 
 def scanURL():
-    
+    json_dir = [dir for dir, subdir, json in os.walk(DEV_FILE) if docId in json][0]
+
+    fn = os.path.join(json_dir, docId)
+    text = ""
+    try:
+        with open(fn) as data:
+            jsonData = json.load(data)
+            url_scanned = str(jsonData["url"])
+    except ValueError:
+        print("No valid JSON in file: ", fn)
+    return url_scanned
 def scanID():
     
 
