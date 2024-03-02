@@ -31,6 +31,24 @@ def scanInvIndex():
                     invIndex[doc_id][t] = 1
 
     return invIndex;
+
+def scabTermID():
+def scanContent():
+    
+def scanURL():
+    
+def scanID():
+    
+
+def wordfrequency():
+    
+def FindALL():
+    
+    
+def calculateALL():
+    
+    
+
 def main():
     input = search("Enter input: ").strip().lower()
     while input != "":
