@@ -7,11 +7,11 @@
 # • Important text: text in bold (b, strong), in headings (h1, h2, h3), and in titles should be treated as more important than the in other places.
 # Verify which are the relevant HTML tags to select the important words.
 
-import math
+# import math
 import os
-import re
+# import re
 import pandas as pd
-from bs4 import BeautifulSoup as BS
+# from bs4 import BeautifulSoup as BS
 import time
 #import nltk
 # from collections import Counter
@@ -254,10 +254,7 @@ def writeDocIDTermID_dict():
 #     score_dict.close()
 
 
-    save_path = os.path.join(os.getcwd(), "Test")
 
-    info = os.path.join(save_path, f"info{index_count}" + ".txt")
-    info_urls = os.path.join(save_path, f"info_urls{index_count}" + ".txt")
 
 # def main(dev):
 #     global doc_id
