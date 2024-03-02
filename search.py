@@ -130,6 +130,23 @@ def BoolSearcher(word, term_id_dict, index):
     pages = list(index[int(term_id)])
     return pages
 def SearchTerm(searched, term_id_dict, doc_id_dict, index):
+    Scores = {}
+
+    valid_docs = set()
+    good_docs = set()
+
+    raw_search = set(searched.split())
+    search = set()
+    for word in raw_search:
+        if word in term_id_dict:
+            search.add(word)
+
+    for word in search:
+        checkDocs = BoolSearcher(word, term_id_dict, index)
+        for doc in checkDocs:
+            if doc not in valid_docs:
+                valid_docs.add(doc)
+
 def printRESULTS(finalscores, doc_id_dict, searched):
 
 def main():
