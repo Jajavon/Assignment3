@@ -90,7 +90,7 @@ def scanDocID():
     return doc_id_dict
 
 def wordfrequency(term, doc_id):
-    words = parseDocData(doc_id).lower().split()
+    words = scanDocID(doc_id).lower().split()
     count = 0
     for word in words:
         if word == term:
@@ -109,9 +109,17 @@ def FindALL(term_id, word, doc_id, doc_id_dict, index):
     else:
         return 0
 
-def calculateALL():
-    
-    
+def calculateALL(docs, term_id_dict, doc_id_dict, index, search, weight):
+    cal_score = {}
+    for doc in docs:
+        for word in search:
+            term_id = term_id_dict[word]
+            found = FindALL(term_id, word, doc, doc_id_dict, index) * weight
+            if doc not in tfidfScores:
+                cal_score[doc] = found
+            else:
+                cal_score[doc] += found
+    return cal_score
 
 def main():
     input = search("Enter input: ").strip().lower()
