@@ -121,6 +121,11 @@ def calculateALL(docs, term_id_dict, doc_id_dict, index, search, weight):
                 cal_score[doc] += found
     return cal_score
 
+def saveSCORE(docs, term_id_dict, doc_id_dict, index, search, weight):
+    score = dict()
+    score.update(calculateALL(docs, term_id_dict, doc_id_dict, index, search, weight))
+    return score
+
 def main():
     input = search("Enter input: ").strip().lower()
     while input != "":
