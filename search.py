@@ -115,7 +115,7 @@ def calculateALL(docs, term_id_dict, doc_id_dict, index, search, weight):
         for word in search:
             term_id = term_id_dict[word]
             found = FindALL(term_id, word, doc, doc_id_dict, index) * weight
-            if doc not in tfidfScores:
+            if doc not in cal_score:
                 cal_score[doc] = found
             else:
                 cal_score[doc] += found
@@ -127,9 +127,9 @@ def saveSCORE(docs, term_id_dict, doc_id_dict, index, search, weight):
     return score
 
 def main():
-    input = search("Enter input: ").strip().lower()
+    input = usersearch("Enter input: ").strip().lower()
     while input != "":
-        input = search("Enter query: ").strip()
+        input = usersearch("Enter query: ").strip()
 
 if __name__ == "__main__":
     main()
