@@ -34,7 +34,8 @@ term_id_dict = dict()
 term_n_doc_dict = dict()
 count_words = 0
 doc_id = 0
-
+def bool_num(word) -> bool:
+    return word.isdigit()
 def save():
     global doc_id_dict
     global term_id_dict
