@@ -27,12 +27,12 @@ import pandas
 #dev = "C:\Test\DEV" # os.path.join(os.getcwd(), "DEV")
 dev = os.path.join(os.getcwd(), "DEV")
 
-inverse_index = dict()
-doc_dict = dict()
-word_freq = defaultdict(int)
-index_count = 0
-unique_words = 0
-total_indoc = 0
+dev = "./DEV/"
+
+doc_id_dict = dict()
+term_id_dict = dict()
+term_n_doc_dict = dict()
+count_words = 0
 doc_id = 0
 current_id = 0
 
