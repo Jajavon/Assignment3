@@ -126,6 +126,21 @@ def write():
     global inverse_index
 
 def writeDocID():
+    global docIds
+    with open('docsIDs.txt', 'w') as f:
+        done_docIds = 0
+        total_docs = len(docIds)
+        f.write('Total Docs: ' + str(total_docs) + '\n')
+
+        for key, value in docIds.items():
+            f.write(str(key) + ' ' + value + '\n')
+            inprogress = (done_docIds / float(total_docs)) * 100
+            sys.stdout.write("Writing DocIDs to docsIDs.txt..~ %d%%   \r" % (inprogress))
+            if (inprogress != 100):
+                sys.stdout.flush()
+            else:
+                sys.stdout.write('\n')
+
 
 
 
