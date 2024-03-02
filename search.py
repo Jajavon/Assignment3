@@ -12,7 +12,7 @@ INV_INDEX_FILE = "./InvIndex_dict.txt"
 TERMS_IDS_FILE = "./termsIDs.txt"
 DEV_FILE = "./ANALYST/"
 
-def search(text):
+def usersearch(text):
     return input(text)
 def scanInvIndex():
     invIndex = dict()
