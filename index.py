@@ -90,13 +90,17 @@ def index(doc_id, current_id, alpha_sequences, first_rank, second_rank):
     if doc_id % 11000 == 0:
         write()
 
-    word_freq = defaultdict()
+def writeTermID():
+    global term_id_dict
+    termIds = collections.OrderedDict(sorted(term_id_dict.items(), key = lambda x: x[1]))
+    with open('termsIDs.txt', 'w') as f:
+        done_terms = 0
+        total_terms = len(termIds)
+        # print("termIds: ", termIds)
 
-    for word in alpha_sequences:
-        word_freq[word] += 1
-
-    for word in alpha_sequences:
-        score = round(word_freq[word] / len(alpha_sequences), 7)
+        termIds_isalnum = {key: value for key, value in termIds.items() if key.isalnum()}
+        termIds_ord = {v: i for i, v in enumerate(termIds_isalnum.keys(), 1)}
+        # print("\n\n\nORDER: ", termIds_ord)
 
     for word in alpha_sequences:
         try:
