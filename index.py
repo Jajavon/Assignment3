@@ -24,10 +24,6 @@ import sys
 import collections
 
 
-#dev = "C:\Users\j_aja\PycharmProjects\CS121projects\Assignment3\DEV"
-#dev = "C:\Users\j_aja\PycharmProjects\CS121projects\Assignment3\DEV"
-#dev = "C:\Test\DEV" # os.path.join(os.getcwd(), "DEV")
-dev = os.path.join(os.getcwd(), "DEV")
 
 dev = "./ANALYST/"
 
@@ -42,7 +38,6 @@ def save_data():
     global doc_id_dict
     global term_id_dict
     global term_n_doc_dict
-    global count_words
     global doc_id
 
     saved_files = 0
@@ -84,13 +79,7 @@ def save_data():
                     sys.stdout.write('\n')
 
             except ValueError:
-                print('No valid json in file ' + fn)
-
-
-def index(doc_id, current_id, alpha_sequences, first_rank, second_rank):
-
-    if doc_id % 11000 == 0:
-        write()
+                print('No valid json in file: ' + fn)
 
 def writeTermID():
     global term_id_dict
@@ -161,31 +150,108 @@ def writeDocIDTermID_dict():
                 sys.stdout.write('\n')
     print('DONE')
 
-def tokenize(content):
-    """
-    Runtime Complexity: O(n)
-    """
-    tList = []
-    token_word = ""
-    content = content.split()
-    ps = PS()
+# def index(doc_id, current_id, alpha_sequences, first_rank, second_rank):
+#
+#     if doc_id % 11000 == 0:
+#         write()
+#
+#     word_freq = defaultdict()
+#
+#     for word in alpha_sequences:
+#         word_freq[word] += 1
+#
+#     for word in alpha_sequences:
+#         score = round(word_freq[word] / len(alpha_sequences), 7)
+#
+#     for word in alpha_sequences:
+#         try:
+#             if first_rank[word]:
+#                 score += 1
+#             if second_rank[word]:
+#                 score += 0.5
+#         except:
+#             pass
+#
+#         finally:
+#             if word not in inverse_index:
+#                 first_time = (current_id, score)
+#                 inverse_index[word] = set()
+#                 inverse_index[word].add(first_time)
+#             else:
+#                 inverse_index[word].add((current_id, score))
+#     word_freq.clear()
 
-    for w in content:
-        token_word = re.sub("[^A-Za-z0-9]+", " ", str(w))
-        token_word = re.sub("_", " ", str(token_word))
-        token_word = token_word.strip()
+# def write():
+#     global index_count
+#     global unique_words
+#     global total_indoc
+#     global doc_id
+#     global current_id
+#     global inverse_index
+#
+#     index_count += len(inverse_index)
+#     total_indoc += doc_id
+#     index_count += 1
+#     doc_id = 0
+#     save_path = os.path.join(os.getcwd(), "Test")
+#
+#     sent_text = open(os.path.join(save_path, f"info{index_count}" + ".txt"), 'w')
+#     extra_text = open(os.path.join(save_path, f"info_urls{index_count}" + ".txt"), 'w')
+#
+#     with sent_text as json_file:
+#         inverse_index = {k: str(v) for k, v in sorted(inverse_index.items())}
+#         json.dump(inverse_index, json_file)
+#     sent_text.close()
+#
+#     with extra_text as index_json_file:
+#         doc_id = {k: v for k, v in sorted(doc_id.items())}
+#         json.dump(doc_id, index_json_file)
+#     extra_text.close()
+#
+#     inverse_index.clear()
+#     doc_id.clear()
 
-        if len(token_word.split()) > 1:
-            for token in token_word.split():
-                stem_token = ps.stem(token)
-                if len(stem_token) >= 2:
-                    tList.append(stem_token)
-    return tList
+# def tokenize(content):
+#     """
+#     Runtime Complexity: O(n)
+#     """
+#     tList = []
+#     token_word = ""
+#     content = content.split()
+#     ps = PS()
+#
+#     for w in content:
+#         token_word = re.sub("[^A-Za-z0-9]+", " ", str(w))
+#         token_word = re.sub("_", " ", str(token_word))
+#         token_word = token_word.strip()
+#
+#         if len(token_word.split()) > 1:
+#             for token in token_word.split():
+#                 stem_token = ps.stem(token)
+#                 if len(stem_token) >= 2:
+#                     tList.append(stem_token)
+#     return tList
 
-def calculate(txtfile):
-    final_index = {}
-    with open(txtfile, "r") as file:
-        text_response = json.loads(file.read())
+# def calculate(txtfile):
+#     final_index = {}
+#     with open(txtfile, "r") as file:
+#         text_response = json.loads(file.read())
+#
+#         for word, posting in text_response['all_pages'].items():
+#             posts = re.sub('}', '}, ', str(posting))
+#             posts = eval(posts)[0]
+#             new_postings = list()
+#
+#             for (docID, score) in posts:
+#                 idf = math.log(270526 / len(posts) + 1)
+#                 new_postings.append((docID, round(score * idf, 7)))
+#             final_index[word] = new_postings
+#
+#     save_path = os.path.join(os.getcwd(), "Test")
+#     score_dict = open(os.path.join(save_path, "score_dict.txt"), 'w')
+#     with score_dict as file:
+#         file.write(json.dumps(final_index))
+#     score_dict.close()
 
         for word, posting in text_response['all_pages'].items():
             posts = re.sub('}', '}, ', str(posting))
