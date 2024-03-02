@@ -168,10 +168,22 @@ def SearchTerm(searched, term_id_dict, doc_id_dict, index):
     return Scores
 
 def printRESULTS(finalscores, doc_id_dict, searched):
+    final_dict = ((k, finalscores[k]) for k in
+              sorted(finalscores, key = finalscores.get, reverse = True)[:5])
+    for key, value in final_dict:
+        scannedURL = scanURL(key).strip()
+        print("\nID: ", key, " ", doc_id_dict[key], "\n\tURL: ", scannedURL,
+              "\n\tSearch: ", str(searched.split()))
 
 def main():
+    index = scanInvIndex()
+    term_id_dict = scanTermID()
+    doc_id_dict = scanDocID()
     input = usersearch("Enter input: ").strip().lower()
+
     while input != "":
+        searchScores = SearchTerm(input, term_id_dict, doc_id_dict, index)
+        printRESULTS(searchScores, doc_id_dict, input)
         input = usersearch("Enter query: ").strip()
 
 if __name__ == "__main__":
