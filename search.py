@@ -33,6 +33,18 @@ def scanInvIndex():
     return invIndex;
 
 def scabTermID():
+    term_ID_dict = dict()
+
+    with open(TERMS_IDS_FILE, "r") as termfile:
+        lines = set(termfile.readlines()[1:])
+        for line in lines:
+            data = line.split(" ")
+            termId = data[0].strip()
+            term = data[1].strip()
+
+            term_ID_dict[term] = termId
+
+    return term_ID_dict
 def scanContent():
     
 def scanURL():
