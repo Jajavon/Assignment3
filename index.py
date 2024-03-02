@@ -14,12 +14,14 @@ import pandas as pd
 from bs4 import BeautifulSoup as BS
 import time
 #import nltk
-from collections import Counter
-from nltk.tokenize import word_tokenize
-from nltk.stem import PorterStemmer as PS
-from collections import defaultdict
+# from collections import Counter
+# from nltk.tokenize import word_tokenize
+# from nltk.stem import PorterStemmer as PS
+# from collections import defaultdict
 import json
-import pandas
+# import pandas
+import sys
+import collections
 
 
 #dev = "C:\Users\j_aja\PycharmProjects\CS121projects\Assignment3\DEV"
