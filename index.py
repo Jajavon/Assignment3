@@ -85,6 +85,7 @@ def save_data():
 
 def writeTermID():
     global term_id_dict
+    global count_words
     termIds = collections.OrderedDict(sorted(term_id_dict.items(), key = lambda x: x[1]))
     with open('termsIDs.txt', 'w') as f:
         done_terms = 0
