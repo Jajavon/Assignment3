@@ -1,6 +1,8 @@
 # Searcher
 import os
 import math
+import json
+import index
 #   search and retrieval component
 #   At least the following queries should be used to test your retrieval:
 #   cristina lopes, machine learning, ACM, master of software engineering
@@ -46,11 +48,11 @@ def scabTermID():
             term_ID_dict[term] = termId
 
     return term_ID_dict
-def scanContent():
-    json_dir = [dir for dir, subdir, json in os.walk(DEV_FILE) if docId in json][0]
+def scanContent(doc_id):
+    json_dir = [dir for dir, subdir, json in os.walk(DEV_FILE) if doc_id in json][0]
     # print(json_dir)
 
-    fn = os.path.join(json_dir, docId)
+    fn = os.path.join(json_dir, doc_id)
     text = ""
     try:
         with open(fn) as data:
@@ -61,10 +63,10 @@ def scanContent():
     # print("CONTENT: ", content)
     return content
 
-def scanURL():
-    json_dir = [dir for dir, subdir, json in os.walk(DEV_FILE) if docId in json][0]
+def scanURL(doc_id):
+    json_dir = [dir for dir, subdir, json in os.walk(DEV_FILE) if doc_id in json][0]
 
-    fn = os.path.join(json_dir, docId)
+    fn = os.path.join(json_dir, doc_id)
     text = ""
     try:
         with open(fn) as data:
