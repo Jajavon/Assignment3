@@ -117,10 +117,10 @@ def writeDocID():
     global doc_id
     with open('docsIDs.txt', 'w') as f:
         done_docIds = 0
-        total_docs = len(doc_id)
+        total_docs = len(doc_id_dict)
         f.write('Total Docs: ' + str(total_docs) + '\n')
 
-        for key, value in doc_id.items():
+        for key, value in doc_id_dict.items():
             f.write(str(key) + ' ' + value + '\n')
             inprogress = (done_docIds / float(total_docs)) * 100
             sys.stdout.write("Writing DocIDs to docsIDs.txt..~ %d%%   \r" % (inprogress))
