@@ -34,8 +34,15 @@ term_id_dict = dict()
 term_n_doc_dict = dict()
 count_words = 0
 doc_id = 0
-current_id = 0
 
+def save():
+    global doc_id_dict
+    global term_id_dict
+    global term_n_doc_dict
+    global count_words
+    global doc_id
+    
+    
 
 def index(doc_id, current_id, alpha_sequences, first_rank, second_rank):
 
