@@ -96,9 +96,16 @@ def wordfrequency(term, doc_id):
             count = 1
     return 1 + math.log(int(count))
 
-def FindALL():
-    
-    
+def FindALL(term_id, word, doc_id, doc_id_dict, index):
+    pages = index[int(term_id)]
+    if doc_id in pages:
+        tf = wordfrequency(word, doc_id)
+        idf = math.log(float(len(doc_id_dict)) / float(len(pages)))
+
+        return float(tf * idf)
+    else:
+        return 0
+
 def calculateALL():
     
     
