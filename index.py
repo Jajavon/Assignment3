@@ -321,10 +321,11 @@ if __name__ == "__main__":
     writeDocIDTermID_dict()
     print("\nResults: ")
     print("--- %s seconds ---" % (time.time() - start))
+
     # Number of indexed document?
-    print("Number of indexed document: " + str(total_indoc) + " " + str(current_id))
+    print("Number of indexed document: " + str(len(doc_id_dict)))
     # Number of unique words?
-    print("Number of unique words: " + str(unique_words))
+    print("Number of unique words: " + str(count_words))
     # Total size of index on disk?
     disk_size = 0
     for path, dirs, files in os.walk(dev):
