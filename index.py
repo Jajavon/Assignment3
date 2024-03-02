@@ -253,129 +253,119 @@ def writeDocIDTermID_dict():
 #         file.write(json.dumps(final_index))
 #     score_dict.close()
 
-        for word, posting in text_response['all_pages'].items():
-            posts = re.sub('}', '}, ', str(posting))
-            posts = eval(posts)[0]
-            new_postings = list()
-
-            for (docID, score) in posts:
-                idf = math.log(270526 / len(posts) + 1)
-                new_postings.append((docID, round(score * idf, 7)))
-            final_index[word] = new_postings
-
-    save_path = os.path.join(os.getcwd(), "Test")
-    score_dict = open(os.path.join(save_path, "score_dict.txt"), 'w')
-    with score_dict as file:
-        file.write(json.dumps(final_index))
-    score_dict.close()
-
-def main(dev):
-    global doc_id
-    global current_id
-
-    for subdir, dirs, files in os.walk(dev): # iterates through DEV
-        for file in files:
-            datafile = os.path.join(subdir, file)
-            doc_id += 1
-            current_id += 1
-            alpha_sequences = list()
-            print(f"File: DOCUMENT ID:{doc_id} INDEX COUNT:{index_count} WORDS:{unique_words} CURRENT ID:{current_id}: ", datafile)
-
-            first_rank = dict()
-            second_rank = dict()
-
-    try:
-        soup = BS(open(datafile), "html.parser")
-        for content in soup.findAll(["title", "p", "b", re.compile('^h[1-6]$')]):
-            data = content.getText().strip()
-            alpha_sequences = word_tokenize(data)
-
-        for content in soup.findAll(["title", re.compile('^h[1-3]$')]):
-            data = content.getText().strip()
-            first_rank = {**first_rank, **(Counter(word_tokenize(data)))}
-
-        for content in soup.findAll(["b", "strong", re.compile('^h[1-3]$')]):
-            data = content.getText().strip()
-            second_rank = {**second_rank, **(Counter(word_tokenize(data)))}
-
-        index(doc_id, current_id, alpha_sequences, first_rank, second_rank)
-
-        doc_dict[current_id] = datafile[49:]
-
-    except Exception as error:
-        print("There is an error at: " + str(error))
-
-    partial_index()
-    save_path = os.path.join(os.getcwd(), "Test")
-    final_text = os.path.join(save_path, "final_text.txt")
-    calculate(final_text, total_indoc)
-
-
-def partial_index():
-    global index_count
-    global unique_words
-    global total_indoc
-    global doc_id
-    global current_id
-    global inverse_index
-    global doc_dict
-
-    unique_words += len(inverse_index)
-    index_count += 1
-    total_indoc += doc_id
 
     save_path = os.path.join(os.getcwd(), "Test")
 
     info = os.path.join(save_path, f"info{index_count}" + ".txt")
     info_urls = os.path.join(save_path, f"info_urls{index_count}" + ".txt")
 
-    sent_text = open(info, 'w')
-    extra_text = open(info_urls, 'w')
+# def main(dev):
+#     global doc_id
+#     global current_id
+    #
+    # for subdir, dirs, files in os.walk(dev): # iterates through DEV
+    #     for file in files:
+    #         datafile = os.path.join(subdir, file)
+    #         doc_id += 1
+    #         current_id += 1
+    #         alpha_sequences = list()
+    #         print(f"File: DOCUMENT ID:{doc_id} INDEX COUNT:{index_count} WORDS:{unique_words} CURRENT ID:{current_id}: ", datafile)
+    #
+    #         first_rank = dict()
+    #         second_rank = dict()
+    #
+    # try:
+    #     soup = BS(open(datafile), "html.parser")
+    #     for content in soup.findAll(["title", "p", "b", re.compile('^h[1-6]$')]):
+    #         data = content.getText().strip()
+    #         alpha_sequences = word_tokenize(data)
+    #
+    #     for content in soup.findAll(["title", re.compile('^h[1-3]$')]):
+    #         data = content.getText().strip()
+    #         first_rank = {**first_rank, **(Counter(word_tokenize(data)))}
+    #
+    #     for content in soup.findAll(["b", "strong", re.compile('^h[1-3]$')]):
+    #         data = content.getText().strip()
+    #         second_rank = {**second_rank, **(Counter(word_tokenize(data)))}
+    #
+    #     index(doc_id, current_id, alpha_sequences, first_rank, second_rank)
+    #
+    #     doc_dict[current_id] = datafile[49:]
+    #
+    # except Exception as error:
+    #     print("There is an error at: " + str(error))
+    #
+    # partial_index()
+    # save_path = os.path.join(os.getcwd(), "Test")
+    # final_text = os.path.join(save_path, "final_text.txt")
+    # calculate(final_text, total_indoc)
 
-    with sent_text as json_file:
-        inverse_index = {k: str(v) for k, v in sorted(inverse_index.items())}
-        json.dump(inverse_index, json_file)
-    sent_text.close()
 
-    with extra_text as index_json_file:
-        doc_dict = {k: v for k, v in sorted(doc_dict.items())}
-        json.dump(doc_dict, index_json_file)
-    extra_text.close()
-
-    file_list = [os.path.join(save_path, f"info{x + 1}" + ".txt") for x in range(index_count)]
-    url_list = [os.path.join(save_path, f"info_urls{x + 1}" + ".txt") for x in range(index_count)]
-
-    base = []
-    for file in file_list:
-        temp = pandas.read_json(file, orient = "index")
-        base.append(temp)
-
-    result = base[0]
-    result.columns = ["pages1"]
-    count = 2
-    for i in base[1:]:
-        i.columns = [f'pages{count}']
-        count += 1
-        result = result.join(i, how = "outer", lsuffix = "_left", rsuffix = "_right")
-
-    result = result.fillna('')
-    result['all_pages'] = result['all_pages'] = result["pages1"] + result["pages2"] + result[
-        "pages3"] + result["pages4"] + result["pages5"] + result["pages6"]
-    for i in range(index_count):
-        del result[f'pages{i + 1}']
-
-    total_urls = []
-    for urls in url_list:
-        temps = pandas.read_json(urls, orient = 'index')
-        total_urls.append(temps)
-    url_result = pandas.concat(total_urls)
-    save_path = os.path.join(os.getcwd(), "Test")
-
-    final_text = os.path.join(save_path, "final_text.txt")
-    final_url = os.path.join(save_path, "final_url.txt")
-
-    result.to_json(final_text)
-    url_result.to_json(final_url)
+# def partial_index():
+#     global index_count
+#     global unique_words
+#     global total_indoc
+#     global doc_id
+#     global current_id
+#     global inverse_index
+#     global doc_dict
+#
+#     unique_words += len(inverse_index)
+#     index_count += 1
+#     total_indoc += doc_id
+#
+#     save_path = os.path.join(os.getcwd(), "Test")
+#
+#     info = os.path.join(save_path, f"info{index_count}" + ".txt")
+#     info_urls = os.path.join(save_path, f"info_urls{index_count}" + ".txt")
+#
+#     sent_text = open(info, 'w')
+#     extra_text = open(info_urls, 'w')
+#
+#     with sent_text as json_file:
+#         inverse_index = {k: str(v) for k, v in sorted(inverse_index.items())}
+#         json.dump(inverse_index, json_file)
+#     sent_text.close()
+#
+#     with extra_text as index_json_file:
+#         doc_dict = {k: v for k, v in sorted(doc_dict.items())}
+#         json.dump(doc_dict, index_json_file)
+#     extra_text.close()
+#
+#     file_list = [os.path.join(save_path, f"info{x + 1}" + ".txt") for x in range(index_count)]
+#     url_list = [os.path.join(save_path, f"info_urls{x + 1}" + ".txt") for x in range(index_count)]
+#
+#     base = []
+#     for file in file_list:
+#         temp = pandas.read_json(file, orient = "index")
+#         base.append(temp)
+#
+#     # result = base[0]
+#     # result.columns = ["pages1"]
+#     # count = 2
+#     # for i in base[1:]:
+#     #     i.columns = [f'pages{count}']
+#     #     count += 1
+#     #     result = result.join(i, how = "outer", lsuffix = "_left", rsuffix = "_right")
+#     #
+#     # result = result.fillna('')
+#     # result['all_pages'] = result['all_pages'] = result["pages1"] + result["pages2"] + result[
+#     #     "pages3"] + result["pages4"] + result["pages5"] + result["pages6"]
+#     # for i in range(index_count):
+# #        del result[f'pages{i + 1}']
+#
+#     total_urls = []
+#     for urls in url_list:
+#         temps = pandas.read_json(urls, orient = 'index')
+#         total_urls.append(temps)
+#     url_result = pandas.concat(total_urls)
+#     save_path = os.path.join(os.getcwd(), "Test")
+#
+#     final_text = os.path.join(save_path, "final_text.txt")
+#     final_url = os.path.join(save_path, "final_url.txt")
+#
+#    # result.to_json(final_text)
+#     url_result.to_json(final_url)
 
 if __name__ == "__main__":
     start = time.time()
