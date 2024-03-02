@@ -32,7 +32,6 @@ def scanInvIndex():
                     invIndex[doc_id][t] += 1
                 else:
                     invIndex[doc_id][t] = 1
-
     return invIndex;
 
 def scanTermID():
