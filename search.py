@@ -125,7 +125,10 @@ def saveSCORE(docs, term_id_dict, doc_id_dict, index, search, weight):
     score = dict()
     score.update(calculateALL(docs, term_id_dict, doc_id_dict, index, search, weight))
     return score
-def BoolSearcher():
+def BoolSearcher(word, term_id_dict, index):
+    term_id = term_id_dict[word]
+    pages = list(index[int(term_id)])
+    return pages
 def SearchTerm(searched, term_id_dict, doc_id_dict, index):
 def printRESULTS(finalscores, doc_id_dict, searched):
 
