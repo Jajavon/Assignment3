@@ -32,6 +32,7 @@ term_id_dict = dict()
 term_n_doc_dict = dict()
 count_words = 0
 doc_id = 0
+term_id_count = 0
 def bool_num(word) -> bool:
     return word.isdigit()
 def save_data():
@@ -39,6 +40,7 @@ def save_data():
     global term_id_dict
     global term_n_doc_dict
     global doc_id
+    global term_id_count
 
     saved_files = 0
     Dir_files = len(os.listdir(dev))
@@ -63,7 +65,7 @@ def save_data():
                             value = term_id_dict.get(encoded_term)
                             if(not value):
                                 term_id_dict[encoded_term] = term_id_count
-                                term_id_dict[term_id_count] = [doc_id]
+                                term_n_doc_dict[term_id_count] = [doc_id]
                                 term_id_count = term_id_count + 1
                             else:
                                 doc_list = term_n_doc_dict[value]
