@@ -145,6 +145,11 @@ def writeDocID():
 
 
 def writeDocIDTermID_dict():
+    global term_n_doc_dict
+    with open('InvIndex_dict.txt', 'w') as f:
+        done_terms = 0
+        total_terms = len(term_n_doc_dict)
+        # print("termIdDocList: ", term_n_doc_dict, "\nTOTAL: ", total_terms)
 
     inverse_index.clear()
     doc_id.clear()
