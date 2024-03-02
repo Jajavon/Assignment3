@@ -114,7 +114,7 @@ def writeTermID():
     #print('Total terms: ' + str(total_terms))
 
 def writeDocID():
-    global doc_id
+    global doc_id_dict
     with open('docsIDs.txt', 'w') as f:
         done_docIds = 0
         total_docs = len(doc_id_dict)
