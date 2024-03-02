@@ -1,4 +1,5 @@
 # Searcher
+import time
 import os
 import math
 import json
@@ -186,4 +187,8 @@ def main():
         input = usersearch("Enter query: ").strip()
 
 if __name__ == "__main__":
+    print("Starting")
+    start = time.time()
     main()
+    print("--- %s seconds ---" % (time.time() - start))
+    print("Finished")
